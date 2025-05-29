@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Optimal Fuse Time Calculator</title>
+    <title>Stupid Ass Artillery Calculator</title>
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
         input, button { margin: 10px 0; display: block; width: 100%; padding: 8px; }
@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h1>Optimal Fuse Time Calculator</h1>
+    <h1>Ref Do Something</h1>
 
     <label for="targetRange">Target Range (studs):</label>
     <input type="number" id="targetRange" placeholder="Enter target range, e.g., 700">
@@ -27,7 +27,7 @@
         function calculateFuse() {
             const targetRange = parseFloat(document.getElementById('targetRange').value);
             if (isNaN(targetRange) || targetRange <= 0) {
-                document.getElementById('result').innerHTML = "⚠️ Please enter a valid positive number for range.";
+                document.getElementById('result').innerHTML = "Fuckass enter an actual number.";
                 return;
             }
 
@@ -41,7 +41,7 @@
                 message += ` Minimum fuse time is ${minFuse} sec (Overshoot Possible).`;
             } else if (calculatedFuse > maxFuse) {
                 let maxRange = (velocity * maxFuse).toFixed(2);
-                message += `⚠ Maximum fuse time is ${maxFuse} sec — maxxed out my friend it is ${maxRange} studs.`;
+                message += `Maximum fuse time is ${maxFuse} sec — maxxed out my friend it is ${maxRange} studs.`;
             } else {
                 message += `Set the fucking fuse to <b>${clampedFuse.toFixed(2)} sec</b> pray for gang to hit it bro.`;
             }
