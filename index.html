@@ -20,9 +20,9 @@
     <div id="result"></div>
 
     <script>
-        const velocity = 450; // studs/sec
-        const minFuse = 1.0;  // sec
-        const maxFuse = 3.0;  // sec
+        const multiplier = 0.0024; // fuse per stud
+        const minFuse = 1.0;       // sec
+        const maxFuse = 3.0;       // sec
 
         function calculateFuse() {
             const targetRange = parseFloat(document.getElementById('targetRange').value);
@@ -31,19 +31,18 @@
                 return;
             }
 
-            let calculatedFuse = targetRange / velocity;
+            let calculatedFuse = targetRange * multiplier;
             let clampedFuse = Math.min(Math.max(calculatedFuse, minFuse), maxFuse);
 
             let message = `<b>Input Range:</b> ${targetRange} studs<br>`;
-            message += `<b>Calculated Fuse:</b> ${calculatedFuse.toFixed(2)} sec<br>`;
+            message += `<b>Calculated Fuse (before clamp):</b> ${calculatedFuse.toFixed(2)} sec<br>`;
 
             if (calculatedFuse < minFuse) {
-                message += ` Minimum fuse time is ${minFuse} sec (Overshoot Possible).`;
+                message += `Minimum fuse time is ${minFuse} sec (Overshoot Possible).`;
             } else if (calculatedFuse > maxFuse) {
-                let maxRange = (velocity * maxFuse).toFixed(2);
-                message += `Maximum fuse time is ${maxFuse} sec — maxxed out my friend it is ${maxRange} studs.`;
+                message += `Maximum fuse time is ${maxFuse} sec — maxxed out, friend.`;
             } else {
-                message += `Set the fucking fuse to <b>${clampedFuse.toFixed(2)} sec</b> pray for gang to hit it bro.`;
+                message += `Set the fucking fuse to <b>${clampedFuse.toFixed(2)} sec</b> — pray for gang to hit it bro.`;
             }
 
             document.getElementById('result').innerHTML = message;
@@ -51,4 +50,3 @@
     </script>
 </body>
 </html>
-
