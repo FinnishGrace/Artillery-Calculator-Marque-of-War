@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artillery Fuse Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+        input, button { margin: 10px 0; display: block; width: 100%; padding: 8px; }
+        #result { margin-top: 20px; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <h1>6-Inch Pounder Fuse Calculator</h1>
+
+    <label for="fuseTime">Fuse Time (1.0 - 3.0 seconds):</label>
+    <input type="number" id="fuseTime" min="1.0" max="3.0" step="0.1" value="3.0">
+
+    <label for="targetRange">Target Range (studs):</label>
+    <input type="number" id="targetRange" placeholder="Enter target range">
+
+    <button onclick="checkFuse()">Check Fuse Timing</button>
+
+    <div id="result"></div>
+
+    <script>
+        const velocity = 450; // studs/sec
+
+        function checkFuse() {
+            const fuseTime = parseFloat(document.getElementById('fuseTime').value);
+            const targetRange = parseFloat(document.getElementById('targetRange').value);
+
+            if (fuseTime < 1.0 || fuseTime > 3.0) {
+                document.getElementById('result').innerHTML = "⚠️ Fuse time must be between 1.0 and 3.0 seconds.";
+                return;
+            }
+
+            const distanceBeforeFuse = velocity * fuseTime;
+
+            let message = `With a fuse time of ${fuseTime.toFixed(1)} sec, the shell will travel ${distanceBeforeFuse.toFixed(2)} studs before detonation.<br>`;
+
+            if (distanceBeforeFuse >= targetRange) {
+                message += ` The shell will reach the target (${targetRange} studs) **before** the fuse detonates.`;
+            } else {
+                message += `The fuse will detonate **early** — it only reaches ${distanceBeforeFuse.toFixed(2)} studs, but the target is ${targetRange} studs away.`;
+            }
+
+            document.getElementById('result').innerHTML = message;
+        }
+    </script>
+</body>
+</html>
