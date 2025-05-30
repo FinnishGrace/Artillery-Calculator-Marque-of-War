@@ -96,7 +96,7 @@
 
         
 <div class="slider-container">
-    <button onclick="changeSlider(1)">+</button>
+    <button onclick="addSliderValue()">+</button>
     <input type="range" id="rangeSlider" min="0" max="8" value="0" oninput="updateSliderDisplay()">
 </div>
 <div id="sliderDisplay">Slider Value: 50</div>
@@ -150,24 +150,22 @@
     
 const presetValues = [50, 100, 150, 200, 300, 350, 400, 450, 500];
 
-function updateSliderDisplay() {
+function addSliderValue() {
     const slider = document.getElementById('rangeSlider');
     const index = parseInt(slider.value);
-    const value = presetValues[index];
-    document.getElementById('sliderDisplay').innerText = `Slider Value: ${value}`;
-    document.getElementById('targetRange').value = value;
+    const valueToAdd = presetValues[index];
+
+    let currentInput = parseFloat(document.getElementById('targetRange').value);
+    if (isNaN(currentInput)) currentInput = 0;
+
+    const newValue = currentInput + valueToAdd;
+    document.getElementById('targetRange').value = newValue;
+
+    document.getElementById('sliderDisplay').innerText = `Slider Value: ${valueToAdd}`;
+
+
 }
 
-function changeSlider(direction) {
-    const slider = document.getElementById('rangeSlider');
-    let index = parseInt(slider.value) + direction;
-
-    if (index < 0) index = 0;
-    if (index > presetValues.length - 1) index = presetValues.length - 1;
-
-    slider.value = index;
-    updateSliderDisplay();
-}
 
 </script>
 </body>
