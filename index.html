@@ -95,13 +95,11 @@
         <div id="result"></div>
 
         
-        <div class="slider-container">
-            <button onclick="changeSlider(-1)">v</button>
-            <input type="range" id="rangeSlider" min="50" max="100" value="50" oninput="updateSliderDisplay()">
-            <button onclick="changeSlider(1)">^</button>
-        </div>
-        <div id="sliderDisplay">Slider Value: 50</div>
-    </div>
+<div class="slider-container">
+    <button onclick="changeSlider(1)">+</button>
+    <input type="range" id="rangeSlider" min="0" max="8" value="0" oninput="updateSliderDisplay()">
+</div>
+<div id="sliderDisplay">Slider Value: 50</div>
 
 <script>
     
@@ -136,7 +134,7 @@
         } else if (calculatedFuse > maxFuse) {
             message += `Maximum fuse time is ${maxFuse} sec — maxxed out, friend.`;
         } else {
-            message += `Set the fuse to <b>${clampedFuse.toFixed(2)} sec</b> — pray for gang to hit it bro.`;
+            message += `Set the fuse to <b>${clampedFuse.toFixed(2)} sec</b> — Adjust if necessary.`;
         }
 
         document.getElementById('result').innerHTML = message;
@@ -150,24 +148,27 @@
     });
 
     
-    function updateSliderDisplay() {
-        const slider = document.getElementById('rangeSlider');
-        document.getElementById('sliderDisplay').innerText = `Slider Value: ${slider.value}`;
-    }
+const presetValues = [50, 100, 150, 200, 300, 350, 400, 450, 500];
 
-    function changeSlider(direction) {
-        const slider = document.getElementById('rangeSlider');
-        let newValue = parseInt(slider.value) + direction;
+function updateSliderDisplay() {
+    const slider = document.getElementById('rangeSlider');
+    const index = parseInt(slider.value);
+    const value = presetValues[index];
+    document.getElementById('sliderDisplay').innerText = `Slider Value: ${value}`;
+    document.getElementById('targetRange').value = value;
+}
 
-        if (newValue < 50) newValue = 50;
-        if (newValue > 100) newValue = 100;
+function changeSlider(direction) {
+    const slider = document.getElementById('rangeSlider');
+    let index = parseInt(slider.value) + direction;
 
-        slider.value = newValue;
-        updateSliderDisplay();
-    }
+    if (index < 0) index = 0;
+    if (index > presetValues.length - 1) index = presetValues.length - 1;
 
-    
+    slider.value = index;
     updateSliderDisplay();
+}
+
 </script>
 </body>
 </html>
