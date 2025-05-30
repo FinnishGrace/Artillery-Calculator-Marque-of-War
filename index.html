@@ -116,31 +116,30 @@
     const minFuse = 1.0;
     const maxFuse = 3.0;
 
-    function calculateFuse() {
-        const targetRange = parseFloat(document.getElementById('targetRange').value);
-        if (isNaN(targetRange) || targetRange <= 0) {
-            document.getElementById('result').innerHTML = "Enter an actual number, dumbass.";
-            return;
-        }
-
-        let calculatedFuse = targetRange * multiplier;
-        let clampedFuse = Math.min(Math.max(calculatedFuse, minFuse), maxFuse);
-
-        let message = `<b>Input Range:</b> ${targetRange} studs<br>`;
-        message += `<b>Calculated Fuse:</b> ${calculatedFuse.toFixed(2)} sec<br>`;
-
-        if (calculatedFuse < minFuse) {
-            message += `Minimum fuse time is ${minFuse} sec (Overshoot Possible).`;
-        } else if (calculatedFuse > maxFuse) {
-            message += `Maximum fuse time is ${maxFuse} sec — maxxed out, friend.`;
-        } else {
-            message += `Set the fuse to <b>${clampedFuse.toFixed(2)} sec</b> — Adjust if necessary.`;
-        }
-
-        document.getElementById('result').innerHTML = message;
+function calculateFuse() {
+    const targetRange = parseFloat(document.getElementById('targetRange').value);
+    if (isNaN(targetRange) || targetRange <= 0) {
+        document.getElementById('result').innerHTML = "Enter an actual number, dumbass.";
+        return;
     }
 
-    
+    let calculatedFuse = targetRange * multiplier;
+    let clampedFuse = Math.min(Math.max(calculatedFuse, minFuse), maxFuse);
+
+    let message = `<b>Input Range:</b> ${targetRange} studs<br>`;
+    message += `<b>Calculated Fuse:</b> ${calculatedFuse.toFixed(3)} sec<br>`;
+
+    if (calculatedFuse < minFuse) {
+        message += `Minimum fuse time is ${minFuse.toFixed(3)} sec (Overshoot Possible).`;
+    } else if (calculatedFuse > maxFuse) {
+        message += `Maximum fuse time is ${maxFuse.toFixed(3)} sec — Maxxed out fuse, redo.`;
+    } else {
+        message += `Set the fuse to <b>${clampedFuse.toFixed(3)} sec</b> — Adjust if necessary.`;
+    }
+
+    document.getElementById('result').innerHTML = message;
+}
+
     document.getElementById('targetRange').addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
             calculateFuse();
