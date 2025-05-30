@@ -62,7 +62,7 @@
     </style>
 </head>
 <body>
-    <!-- Logo -->
+    <!-- This is the logo, please this is the logo yes yes yes-->
     <img src="Gg.png" alt="Logo" class="logo">
 
     <div class="content">
@@ -73,35 +73,58 @@
         <div id="result"></div>
     </div>
 
-    <script>
-        const multiplier = 0.0024;
-        const minFuse = 1.0;
-        const maxFuse = 3.0;
+<script>
 
-        function calculateFuse() {
-            const targetRange = parseFloat(document.getElementById('targetRange').value);
-            if (isNaN(targetRange) || targetRange <= 0) {
-                document.getElementById('result').innerHTML = "Enter an actual number, dumbass.";
-                return;
-            }
+        
+    const Cloudy = Math.random();
+    let backgroundImage = 'Evil Shot.png'; 
 
-            let calculatedFuse = targetRange * multiplier;
-            let clampedFuse = Math.min(Math.max(calculatedFuse, minFuse), maxFuse);
+    if (Cloudy < 0.1) {
+        backgroundImage = 'CloudyRangeFinder.png'; 
+        console.log('The Cloudy has been deployed');
+    }
 
-            let message = `<b>Input Range:</b> ${targetRange} studs<br>`;
-            message += `<b>Calculated Fuse:</b> ${calculatedFuse.toFixed(2)} sec<br>`;
+ 
+    document.body.style.background = `url('${backgroundImage}') no-repeat center center fixed`;
+    document.body.style.backgroundSize = 'cover';
 
-            if (calculatedFuse < minFuse) {
-                message += `Minimum fuse time is ${minFuse} sec (Overshoot Possible).`;
-            } else if (calculatedFuse > maxFuse) {
-                message += `Maximum fuse time is ${maxFuse} sec — maxxed out, friend.`;
-            } else {
-                message += `Set the fuse to <b>${clampedFuse.toFixed(2)} sec</b> — pray for gang to hit it bro.`;
-            }
+    
+    const multiplier = 0.0024;
+    const minFuse = 1.0;
+    const maxFuse = 3.0;
 
-            document.getElementById('result').innerHTML = message;
+    function calculateFuse() {
+        const targetRange = parseFloat(document.getElementById('targetRange').value);
+        if (isNaN(targetRange) || targetRange <= 0) {
+            document.getElementById('result').innerHTML = "Enter an actual number, dumbass.";
+            return;
         }
-    </script>
+
+        let calculatedFuse = targetRange * multiplier;
+        let clampedFuse = Math.min(Math.max(calculatedFuse, minFuse), maxFuse);
+
+        let message = `<b>Input Range:</b> ${targetRange} studs<br>`;
+        message += `<b>Calculated Fuse:</b> ${calculatedFuse.toFixed(2)} sec<br>`;
+
+        if (calculatedFuse < minFuse) {
+            message += `Minimum fuse time is ${minFuse} sec (Overshoot Possible).`;
+        } else if (calculatedFuse > maxFuse) {
+            message += `Maximum fuse time is ${maxFuse} sec — maxxed out, friend.`;
+        } else {
+            message += `Set the fuse to <b>${clampedFuse.toFixed(2)} sec</b> — pray for gang to hit it bro.`;
+        }
+
+        document.getElementById('result').innerHTML = message;
+    }
+
+    // Hatred is real, Texas
+    document.getElementById('targetRange').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            calculateFuse();
+        }
+    });
+</script>
+
 </body>
 </html>
 
