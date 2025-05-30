@@ -33,6 +33,8 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            width: 90%;
+            max-width: 500px;
         }
 
         input, button {
@@ -59,36 +61,59 @@
             margin-top: 20px;
             font-size: 1.2em;
         }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .slider-container button {
+            width: 40px;
+            height: 40px;
+            font-size: 1.5em;
+            padding: 0;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+        }
     </style>
 </head>
 <body>
-    <!-- This is the logo, please this is the logo yes yes yes-->
+    
     <img src="Gg.png" alt="Logo" class="logo">
 
     <div class="content">
         <h1>RHA Artillery Calculator</h1>
+
         <label for="targetRange">Target Range (studs):</label>
         <input type="number" id="targetRange" placeholder="Enter target range, e.g., 700" />
         <button onclick="calculateFuse()">Calculate Fuse Time</button>
         <div id="result"></div>
+
+        
+        <div class="slider-container">
+            <button onclick="changeSlider(-1)">v</button>
+            <input type="range" id="rangeSlider" min="50" max="100" value="50" oninput="updateSliderDisplay()">
+            <button onclick="changeSlider(1)">^</button>
+        </div>
+        <div id="sliderDisplay">Slider Value: 50</div>
     </div>
 
 <script>
-
-        
+    
     const Cloudy = Math.random();
-    let backgroundImage = 'Evil Shot.png'; 
-
+    let backgroundImage = 'Evil Shot.png';
     if (Cloudy < 0.1) {
-        backgroundImage = 'CloudyRangeFinder.png'; 
+        backgroundImage = 'CloudyRangeFinder.png';
         console.log('The Cloudy has been deployed');
     }
-
- 
     document.body.style.background = `url('${backgroundImage}') no-repeat center center fixed`;
     document.body.style.backgroundSize = 'cover';
 
-    
     const multiplier = 0.0024;
     const minFuse = 1.0;
     const maxFuse = 3.0;
@@ -117,15 +142,34 @@
         document.getElementById('result').innerHTML = message;
     }
 
-    // Hatred is real, Texas
+    
     document.getElementById('targetRange').addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
             calculateFuse();
         }
     });
-</script>
 
+    
+    function updateSliderDisplay() {
+        const slider = document.getElementById('rangeSlider');
+        document.getElementById('sliderDisplay').innerText = `Slider Value: ${slider.value}`;
+    }
+
+    function changeSlider(direction) {
+        const slider = document.getElementById('rangeSlider');
+        let newValue = parseInt(slider.value) + direction;
+
+        if (newValue < 50) newValue = 50;
+        if (newValue > 100) newValue = 100;
+
+        slider.value = newValue;
+        updateSliderDisplay();
+    }
+
+    
+    updateSliderDisplay();
+</script>
 </body>
 </html>
 
- 
+
